@@ -6,6 +6,7 @@ import "core:os"
 import "core:time"
 import "core:unicode/utf8"
 import "core:strings"
+import "core:runtime"
 
 handle_errors :: proc(err: i32) {
     if err != 0 {
@@ -25,6 +26,8 @@ string_from_slice :: proc(arr: $T) -> string {
 
 main :: proc() {
     my_progress_handler :: proc "contextless" (data: rawptr, stage: libraw.LibRaw_progress, iteration, expected: i32) -> i32 {
+        context = runtime.default_context();
+
         fmt.printf("%v: %v%%\n", libraw.strprogress(stage), (iteration * 100) / expected);
         return 0;
     };
