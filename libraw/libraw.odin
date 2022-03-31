@@ -3,7 +3,9 @@ package libraw
 import "core:mem"
 import "core:c"
 
-foreign import "libraw.lib"
+when ODIN_OS == .Windows {
+    foreign import "libraw.lib"
+}
 
 LibRaw_progress :: enum i64 {
     LIBRAW_PROGRESS_START = 0,
